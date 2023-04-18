@@ -1,0 +1,33 @@
+A feladatok megoldására elkészített SQL parancsokat illessze be a feladat sorszáma után!
+
+1. feladat:
+CREATE DATABASE varosok DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
+
+3. feladat:
+SELECT vnev
+FROM varos
+WHERE vnev LIKE "%vasár%";
+
+4. feladat:
+SELECT vnev, nepesseg, terulet
+FROM varos
+WHERE terulet > 400  
+ORDER BY nepesseg DESC;
+
+5. feladat:
+SELECT vnev, nepesseg
+FROM varos INNER JOIN megye ON varos.megyeid=megye.id
+WHERE megye.mnev = "Fejér" AND nepesseg > 15000;
+
+6. feladat:
+SELECT vtip AS "Város típusa", COUNT(varos.id) AS "Városok száma", SUM(nepesseg) AS "Népesség"
+FROM varostipus INNER JOIN varos ON varostipus.id=varos.vtipid
+GROUP BY vtip;  
+
+7. feladat:
+SELECT mnev, COUNT(varos.id) AS db
+FROM megye INNER JOIN varos ON megye.id=varos.megyeid
+WHERE varos.jaras<>varos.kisterseg
+GROUP BY mnev
+HAVING db > 8  
+ORDER BY db DESC;
